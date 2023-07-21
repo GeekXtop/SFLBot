@@ -1,0 +1,21 @@
+{
+  "name": "sflbot",
+  "version": "1.0.0",
+  "description": "SFLBot",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@metamask/test-dapp": "^7.0.1",
+    "@playwright/test": "^1.36.1",
+    "@synthetixio/synpress": "^3.7.1",
+    "dotenv": "^16.3.1"
+  },
+  "scripts": {
+    "test": "playwright test --project=chromium",
+    "wallettest": "playwright test connect-wallet.spec.ts --project=chromium",
+    "test:headless": "HEADLESS_MODE=true playwright test --project=chromium",
+    "start:server": "serve node_modules/@metamask/test-dapp/dist -p 3000"
+  }
+}
