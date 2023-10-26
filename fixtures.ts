@@ -1,6 +1,14 @@
 import { test as base, chromium, type BrowserContext } from '@playwright/test'
 import { initialSetup } from '@synthetixio/synpress/commands/metamask'
 import { prepareMetamask } from '@synthetixio/synpress/helpers'
+import fs from 'fs'
+import path from 'path'
+
+const userDataDir = path.join(process.cwd(), 'user-data')
+// 创建 user-data 目录
+if (!fs.existsSync(userDataDir)) {
+  fs.mkdirSync(userDataDir, { recursive: true })
+}
 
 export const test = base.extend<{
   context: BrowserContext
@@ -25,7 +33,8 @@ export const test = base.extend<{
       browserArgs.push('--headless=new')
     }
     // launch browser
-    const context = await chromium.launchPersistentContext('', {
+    const context = await chromium.launchPersistentContext(userDataDir, {
+      userAgent: process.env.USER_AGENT,
       headless: false,
       args: browserArgs,
     })
